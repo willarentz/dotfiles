@@ -10,8 +10,8 @@ alias l 'exa -alh'
 alias ... 'cd ../..'
 alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
-alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-197-192-120.eu-central-1.compute.amazonaws.com'
-alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-197-192-120.eu-central-1.compute.amazonaws.com'
+alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
+alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
 
 
 set -x PATH $HOME/bin $PATH
