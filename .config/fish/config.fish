@@ -140,15 +140,16 @@ end
 
 #set hombrew paths
 #set -U fish_user_paths "$HOME/.config/fish/functions" $fish_user_paths
-#set -U fish_user_paths "$HOME/.config/fish/completions" $fish_user_paths
-set -U fish_user_paths "/opt/homebrew/bin" $fish_user_paths
-set -U fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
-set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/bin" $fish_user_paths
-set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/condabin" $fish_user_paths
+if status --is-interactive; and test (uname) = "Darwin"
+  #set -U fish_user_paths "$HOME/.config/fish/completions" $fish_user_paths
+  set -U fish_user_paths "/opt/homebrew/bin" $fish_user_paths
+  set -U fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
+  set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/bin" $fish_user_paths
+  set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/condabin" $fish_user_paths
 
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
+  eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
-
+end
