@@ -10,11 +10,12 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd .git/COMMIT_EDITMSG
-edit .git/COMMIT_EDITMSG
+$argadd .config/fish/config.fish
+edit .config/fish/conf.d/local.fish
 argglobal
+balt .config/fish/fish_variables
 setlocal fdm=manual
-setlocal fde=0
+setlocal fde=fish#Fold()
 setlocal fmr={{{,}}}
 setlocal fdi=#
 setlocal fdl=0
@@ -23,14 +24,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 20) / 40)
+let s:l = 26 - ((25 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 26
+normal! 03|
 tabnext 1
-badd +0 .git/COMMIT_EDITMSG
+badd +155 .config/fish/config.fish
+badd +1 .config/fish/fish_variables
+badd +0 .config/fish/conf.d/local.fish
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
