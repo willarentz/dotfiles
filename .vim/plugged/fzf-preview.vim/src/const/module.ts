@@ -1,0 +1,7 @@
+export const VIM_VARIABLE = "vim_variable"
+export const EXECUTE_COMMAND = "execute_command"
+export const RESUME = "resume"
+export const SESSION = "session"
+export const GIT_CONFIG = "git_config"
+export const RECALL = "recall"
+export const FILE_PATH = "file_path"

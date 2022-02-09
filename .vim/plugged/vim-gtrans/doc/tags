@@ -1,0 +1,13 @@
+:Gtrans	gtrans.txt	/*:Gtrans*
+<Plug>(operator-gtrans-buffer)	gtrans.txt	/*<Plug>(operator-gtrans-buffer)*
+<Plug>(operator-gtrans-echom)	gtrans.txt	/*<Plug>(operator-gtrans-echom)*
+g:gtrans#buffer_height	gtrans.txt	/*g:gtrans#buffer_height*
+gtrans-changelog	gtrans.txt	/*gtrans-changelog*
+gtrans-commands	gtrans.txt	/*gtrans-commands*
+gtrans-contents	gtrans.txt	/*gtrans-contents*
+gtrans-interface	gtrans.txt	/*gtrans-interface*
+gtrans-introduction	gtrans.txt	/*gtrans-introduction*
+gtrans-key-mappings	gtrans.txt	/*gtrans-key-mappings*
+gtrans-options	gtrans.txt	/*gtrans-options*
+gtrans.txt	gtrans.txt	/*gtrans.txt*
+vim-gtrans	gtrans.txt	/*vim-gtrans*

@@ -1,0 +1,91 @@
+import { parseEmptySourceFuncArgs } from "@/args"
+import { commandDefinition, vimCommandOptions } from "@/association/command"
+import {
+  cocCurrentDiagnostics,
+  cocCurrentDiagnosticsDefaultOptions,
+  cocDiagnostics,
+  cocDiagnosticsDefaultOptions,
+  cocImplementations,
+  cocImplementationsDefaultOptions,
+  cocReferences,
+  cocReferencesDefaultOptions,
+  cocTypeDefinitions,
+  cocTypeDefinitionsDefaultOptions,
+} from "@/fzf/resource/coc"
+import { cocDefinitions, cocDefinitionsDefaultOptions } from "@/fzf/resource/coc/coc-definitions"
+import { cocOutline, cocOutlineDefaultOptions } from "@/fzf/resource/coc/coc-outline"
+import type { FzfCommand } from "@/type"
+
+export const cocCommandDefinition: ReadonlyArray<FzfCommand> = [
+  ...commandDefinition,
+  {
+    commandName: "FzfPreviewCocReferences",
+    sourceFunc: cocReferences,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocReferencesDefaultOptions,
+    defaultProcessesName: "open-file-with-tag-stack",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocDiagnostics",
+    sourceFunc: cocDiagnostics,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocDiagnosticsDefaultOptions,
+    defaultProcessesName: "open-file",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocCurrentDiagnostics",
+    sourceFunc: cocCurrentDiagnostics,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocCurrentDiagnosticsDefaultOptions,
+    defaultProcessesName: "open-file",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocDefinition",
+    sourceFunc: cocDefinitions,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocDefinitionsDefaultOptions,
+    defaultProcessesName: "open-file",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocTypeDefinition",
+    sourceFunc: cocTypeDefinitions,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocTypeDefinitionsDefaultOptions,
+    defaultProcessesName: "open-file-with-tag-stack",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocImplementations",
+    sourceFunc: cocImplementations,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocImplementationsDefaultOptions,
+    defaultProcessesName: "open-file-with-tag-stack",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+  {
+    commandName: "FzfPreviewCocOutline",
+    sourceFunc: cocOutline,
+    sourceFuncArgsParser: parseEmptySourceFuncArgs,
+    vimCommandOptions,
+    defaultFzfOptionFunc: cocOutlineDefaultOptions,
+    defaultProcessesName: "open-file",
+    enableConvertForFzf: true,
+    enableDevIcons: true,
+  },
+]

@@ -1,0 +1,228 @@
+scriptencoding utf-8
+
+let s:V = vital#openbrowser#new()
+let s:Process = s:V.import('Process')
+
+Describe OpenBrowser
+  Before all
+    let OpenBrowser = s:V.import('OpenBrowser')
+    let Config = s:V.import('OpenBrowser.Config')
+  End
+
+  Describe .new()
+    It returns OpenBrowser-object
+      let config = Config.new_default_source()
+      let obj = OpenBrowser.new(config)
+      Assert IsDictionary(obj)
+      Assert IsFunction(obj.open)
+      Assert IsFunction(obj.search)
+      Assert IsFunction(obj.smart_search)
+    End
+  End
+End
+
+Describe OpenBrowser-object
+  Before all
+    let OpenBrowser = s:V.import('OpenBrowser')
+    let Config = s:V.import('OpenBrowser.Config')
+
+    let s:tempdir = tempname()
+    call mkdir(s:tempdir)
+    if exists('+shellslash')
+      let [ssl_saved, &shellslash] = [&shellslash, 0]
+      let s:tempdir = fnamemodify(s:tempdir, ':p')
+      let &shellslash = ssl_saved
+      let s:pathsep = '\'
+    else
+      let s:tempdir = fnamemodify(s:tempdir, ':p')
+      let s:pathsep = '/'
+    endif
+    let s:tempdir = substitute(s:tempdir, '[/\\]$', '', '')
+    let s:tempfile_idx = 0
+    function! s:tempfile() abort
+      let s:tempfile_idx += 1
+      return s:tempdir . s:pathsep . s:tempfile_idx
+    endfunction
+  End
+
+  After all
+    call delete(s:tempdir, 'rf')
+  End
+
+  Before each
+    let tempfile = s:tempfile()
+    let config = Config.new_default_source()
+    let config._values.browser_commands = [
+    \ {'name': 'echo',
+    \  'args': ['sh', '-c', 'echo "$1" > "$2"', '--', '{uri}', tempfile]}
+    \]
+    let config._values.search_engines['search-foo'] =
+          \ 'https://example.net/foo/{query}/after'
+    let obj = OpenBrowser.new(config)
+  End
+
+  Describe .open()
+    It throws error, if url is not a string
+      Throws /\<42\>/ obj.open(42)
+    End
+
+    Context with url
+      It should call browser command
+        call obj.open('http://example.net/foo/bar')
+        sleep 100m
+        let command_executed = filereadable(tempfile)
+        Assert True(command_executed)
+        let delivered_url = get(readfile(tempfile), 0)
+        Assert Equals(delivered_url, 'http://example.net/foo/bar')
+      End
+    End
+
+    Context with filepath
+      Before each
+        let targetfile = s:tempfile()
+        call writefile([], targetfile)
+        function! s:get_delivered_path(tempfile) abort
+          let path = get(readfile(a:tempfile), 0)
+          let path = substitute(path, '\\', '/', 'g')
+          let path = substitute(path, '^file://', '', '')
+          let path = substitute(path, '^//wsl$/[^/]*', '', '')
+          return path
+        endfunction
+        function! s:get_want_path(targetfile) abort
+          return substitute(a:targetfile, '\\', '/', 'g')
+        endfunction
+      End
+
+      It (file scheme url) should call browser command
+        let file_url = 'file://' . targetfile
+        call obj.open(file_url)
+        sleep 100m
+        let command_executed = filereadable(tempfile)
+        Assert True(command_executed)
+        let delivered_path = s:get_delivered_path(tempfile)
+        let want_path = s:get_want_path(targetfile)
+        Assert Equals(delivered_path, want_path)
+      End
+
+      It (absolute) should call browser command
+        call obj.open(targetfile)
+        sleep 100m
+        let command_executed = filereadable(tempfile)
+        Assert True(command_executed)
+        let delivered_path = s:get_delivered_path(tempfile)
+        let want_path = s:get_want_path(targetfile)
+        Assert Equals(delivered_path, want_path)
+      End
+
+      It (relative) should call browser command
+        let targetfile = s:tempfile()
+        let targetfile_tail = fnamemodify(targetfile, ':t')
+        call writefile([], targetfile)
+        let lcd_saved = getcwd()
+        try
+          execute 'lcd' fnameescape(fnamemodify(targetfile, ':h'))
+          call obj.open(targetfile_tail)
+        finally
+          execute 'lcd' fnameescape(lcd_saved)
+        endtry
+        sleep 100m
+        let command_executed = filereadable(tempfile)
+        Assert True(command_executed)
+        let delivered_path = s:get_delivered_path(tempfile)
+        let want_path = s:get_want_path(resolve(targetfile))
+        Assert Equals(delivered_path, want_path)
+      End
+
+      It (userhome relative) should call browser command
+        let targetfile = s:tempfile()
+        let targetfile_tail = fnamemodify(targetfile, ':t')
+        call writefile([], targetfile)
+        let [home_saved, $HOME] = [$HOME, fnamemodify(targetfile, ':h')]
+        try
+          call obj.open('~/' . targetfile_tail)
+        finally
+          let $HOME = home_saved
+        endtry
+        sleep 100m
+        let command_executed = filereadable(tempfile)
+        Assert True(command_executed)
+        let delivered_path = s:get_delivered_path(tempfile)
+        let want_path = s:get_want_path(resolve(targetfile))
+        Assert Equals(delivered_path, want_path)
+      End
+    End
+  End
+
+  Describe .search()
+    It should nothing, if specified query contains only spaces
+      call obj.search('   ')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert False(command_executed)
+    End
+
+    It should call browser command with default search engine and query
+      call obj.search('bazqux')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url, 'https://google.com/search?q=bazqux')
+    End
+
+    It should call browser command with specified search engine and query
+      call obj.search('QU UX', 'search-foo')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url,
+            \      'https://example.net/foo/QU+UX/after')
+    End
+  End
+
+  Describe .smart_search()
+    It should nothing, if specified query contains only spaces
+      call obj.smart_search('   ')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert False(command_executed)
+    End
+
+    It should call browser command with default search engine and query
+      call obj.smart_search('bazqux')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url, 'https://google.com/search?q=bazqux')
+    End
+
+    It should call browser command with specified search engine and query
+      call obj.smart_search('QU UX', 'search-foo')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url, 'https://example.net/foo/QU+UX/after')
+    End
+
+    It should call browser command with specified URI
+      call obj.smart_search('https://example.net/foobar')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url, 'https://example.net/foobar')
+    End
+
+    It should call browser command with specified URI (ignore search engine)
+      call obj.smart_search('https://example.net/QU+UX', 'search-foo')
+      sleep 100m
+      let command_executed = filereadable(tempfile)
+      Assert True(command_executed)
+      let delivered_url = get(readfile(tempfile), 0)
+      Assert Equals(delivered_url, 'https://example.net/QU+UX')
+    End
+  End
+End

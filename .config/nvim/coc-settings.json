@@ -1,0 +1,42 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "/usr/bin/gopls",
+      "args": ["-debug", "localhost:6060"],
+      "trace.server": "verbose",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "completeUnimported": true,
+        "matcher": "fuzzy",
+        "codelenses": {
+          "generate": true,
+          "test": true
+        }
+      },
+      "rootPatterns": ["go.mod", ".git/"],
+      "disableWorkspaceFolders": true
+    },
+    "golangci-lint-languageserver": {
+      "command": "golangci-lint-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "command": ["golangci-lint", "run",
+          "-E", "gosec",
+          "--out-format", "json",
+          "--max-same-issues", "0",
+          "--max-issues-per-linter", "0"
+        ]
+      }
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  }
+}
