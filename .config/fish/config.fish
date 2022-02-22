@@ -12,6 +12,7 @@ alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.comp
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
 alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
 alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
+alias cat 'bat --paging=never -p'
 
 
 set -x PATH $HOME/bin $PATH
@@ -100,13 +101,14 @@ end
 
 ### Key binding
 function fish_user_key_bindings
-  #  bind \c] fzf_ghq
-  #bind \cr wrap_fzf_history
-  #bind \cu fzf_z
-  #bind \co wrap_fzf_file
-  #bind \cg fzf_cd
+  bind \cr wrap_fzf_history
+  bind \cf wrap_fzf_file
+  bind \cu fzf_z
+  bind \cg fzf_cd
   bind \cg fzf
+  bind \c] fzf_ghq
   bind "[1;2F" kill-line
+  bind \cs '__ethp_commandline_toggle_sudo'
 end
 
 # direnv
