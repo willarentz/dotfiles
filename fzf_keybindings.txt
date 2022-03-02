@@ -1,0 +1,15 @@
+FZF key bindings!
+=================
+
+Ctrl-t    - Find file. Can be used to insert file into command.
+Ctrl-f    - Find file from current location with preview
+Ctrl-j    - CD (jump) into directory
+Ctrl-u    - Smart CD into directory with 'z'
+Ctrl-g    - Open file with registered application
+Ctrl-o    - Open file in editor (NVIM)
+Ctrl-]    - Jump to ghq repository
+
+
+------ Not so useful commands -------
+Alt-c     - CD into directory (whole disk -> sucks)
+Alt-C     - CD into directory, including hidden dirs (whole disk -> sucks)
