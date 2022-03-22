@@ -12,3 +12,5 @@ sudo usermod --shell $(which fish) $USER
 
 $HOME/go/bin/ghq get http://github.com/willarentz/dotfiles
 fish
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
