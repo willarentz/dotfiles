@@ -16,7 +16,7 @@ if status --is-interactive; and test (uname) = "Darwin"
   alias cat 'bat --paging=never -p'
 else if status --is-interactive; and test (uname) = "Linux"
   alias cat 'batcat --paging=never -p'
-  set -x PATH $HOME/go/bin $PATH
+  set -x PATH $HOME/go/bin $HOME/miniconda3/bin $PATH
 end
 
 set -x PATH $HOME/bin $PATH
@@ -123,7 +123,7 @@ function reload_config
   exec fish
 end
 function edit_config
-  $EDITOR ~/.dotfiles/.config/fish/config.fish
+  $EDITOR ~/.config/fish/config.fish
 end
 
 ## osx system functionsA
