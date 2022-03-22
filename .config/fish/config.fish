@@ -16,6 +16,7 @@ if status --is-interactive; and test (uname) = "Darwin"
   alias cat 'bat --paging=never -p'
 else if status --is-interactive; and test (uname) = "Linux"
   alias cat 'batcat --paging=never -p'
+  set -x PATH $HOME/go/bin $PATH
 end
 
 set -x PATH $HOME/bin $PATH

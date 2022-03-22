@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo 'Backing up old settings'
 # first create a backup
@@ -20,23 +20,29 @@ rm -Rf $HOME/.config/vim
 
 echo 'Installing settings'
 # Install by copying the files
-mkdir $HOME/.config
-cp -v `pwd`/.vim $HOME/.vim
-cp -v `pwd`/.vimrc $HOME/.vimrc
-cp -v `pwd`/.tmux.conf $HOME/.tmux.conf
-cp -v `pwd`/.tmux.powerline.conf $HOME/.tmux.powerline.conf
-cp -Rv `pwd`/.config/fish $HOME/.config/fish
-cp -Rv `pwd`/.config/nvim $HOME/.config/nvim
-cp -Rv `pwd`/.config/peco $HOME/.config/peco
-cp -Rv `pwd`/.config/tmux $HOME/.config/tmux
-cp -Rv `pwd`/.config/vim $HOME/.config/vim
+if [ -d $HOME/.config ]
+then
+  echo ".config exists"
+else
+  echo "making: .config"
+  mkdir $HOME/.config
+fi
+cp `pwd`/.vim $HOME/.vim
+cp `pwd`/.vimrc $HOME/.vimrc
+cp `pwd`/.tmux.conf $HOME/.tmux.conf
+cp `pwd`/.tmux.powerline.conf $HOME/.tmux.powerline.conf
+cp -R `pwd`/.config/fish $HOME/.config/fish
+cp -R `pwd`/.config/nvim $HOME/.config/nvim
+cp -R `pwd`/.config/peco $HOME/.config/peco
+cp -R `pwd`/.config/tmux $HOME/.config/tmux
+cp -R `pwd`/.config/vim $HOME/.config/vim
 
 sleep 1
 echo 'Installing fisher plugins'
 # installing fisher plugins
 
-fisher install jorgebucaran/fisher
-fisher install eth-p/fish-plugin-sudo
-fisher install takashabe/fish-fzf
-fisher install decors/fish-ghq
+#fisher install jorgebucaran/fisher
+#fisher install eth-p/fish-plugin-sudo
+#fisher install takashabe/fish-fzf
+#fisher install decors/fish-ghq
 fisher install barnybug/docker-fish-completion
