@@ -37,13 +37,14 @@ cp -R `pwd`/.config/peco $HOME/.config/peco
 cp -R `pwd`/.config/tmux $HOME/.config/tmux
 cp -R `pwd`/.config/vim $HOME/.config/vim
 
-curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-sleep 1
-echo 'Installing fisher plugins'
+#echo 'Installing fisher'
+#curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+#sleep 1
+#echo 'Installing fisher plugins'
 # installing fisher plugins
 
 #fisher install jorgebucaran/fisher
 #fisher install eth-p/fish-plugin-sudo
 #fisher install takashabe/fish-fzf
 #fisher install decors/fish-ghq
-fisher install barnybug/docker-fish-completion
+#fisher install barnybug/docker-fish-completion
