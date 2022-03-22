@@ -12,8 +12,11 @@ alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.comp
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
 alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
 alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
-alias cat 'bat --paging=never -p'
-
+if status --is-interactive; and test (uname) = "Darwin"
+  alias cat 'bat --paging=never -p'
+else if status --is-interactive; and test (uname) = "Linux"
+  alias cat 'batcat --paging=never -p'
+end
 
 set -x PATH $HOME/bin $PATH
 
@@ -148,8 +151,6 @@ if status --is-interactive; and test (uname) = "Darwin"
   set -U fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
   set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/bin" $fish_user_paths
   set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/condabin" $fish_user_paths
-
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source

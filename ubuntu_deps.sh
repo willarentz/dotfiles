@@ -1,8 +1,9 @@
-!#/bin/sh
+!#/bin/bash
 
 sudo apt update
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-sudo apt install -y fish grc lua5.3 fzf bat ruby neovim ripgrep direnv
+sudo apt install -y fish grc lua5.3 fzf bat ruby neovim ripgrep direnv nodejs yarn npm golang
 EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
 curl -Lo exa.zip "https://github.com/ogham/exa/releases/latest/download/exa-linux-x86_64-v${EXA_VERSION}.zip"
 sudo unzip -q exa.zip bin/exa -d /usr/local
+go install ghq
