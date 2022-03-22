@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt -y upgrade
 
 sudo apt install -y fish grc lua5.3 fzf bat ruby neovim ripgrep direnv nodejs yarn npm golang
 EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
