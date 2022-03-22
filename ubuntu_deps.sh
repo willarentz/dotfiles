@@ -1,4 +1,4 @@
-!#/bin/sh
+#!/bin/sh
 
 sudo apt update && sudo apt upgrade
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
