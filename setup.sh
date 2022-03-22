@@ -37,6 +37,7 @@ cp -R `pwd`/.config/peco $HOME/.config/peco
 cp -R `pwd`/.config/tmux $HOME/.config/tmux
 cp -R `pwd`/.config/vim $HOME/.config/vim
 
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 sleep 1
 echo 'Installing fisher plugins'
 # installing fisher plugins
