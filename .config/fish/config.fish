@@ -13,7 +13,6 @@ alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-c
 alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
 alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
 if status --is-interactive; and test (uname) = "Linux"
-  alias bat 'batcat'
   set -x PATH $HOME/go/bin $PATH
 end
 alias cat 'bat --paging=never -p'
