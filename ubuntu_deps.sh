@@ -11,3 +11,4 @@ go install github.com/x-motemen/ghq@latest
 sudo usermod --shell $(which fish) $USER
 
 $HOME/go/bin/ghq get http://github.com/willarentz/dotfiles
+fish

@@ -8,7 +8,7 @@ tar zcvpf $FILE $HOME/.vim $HOME/.vimrc $HOME/.tmux.conf $HOME/.tmux.powerline.c
 echo 'Erasing old settings'
 
 # erase current settings
-rm -f $HOME/.vim
+rm -Rf $HOME/.vim
 rm -f $HOME/.vimrc
 rm -f $HOME/.tmux.conf
 rm -f $HOME/.tmux.powerline.conf
@@ -27,7 +27,7 @@ else
   echo "making: .config"
   mkdir $HOME/.config
 fi
-cp `pwd`/.vim $HOME/.vim
+cp -R `pwd`/.vim $HOME/.vim
 cp `pwd`/.vimrc $HOME/.vimrc
 cp `pwd`/.tmux.conf $HOME/.tmux.conf
 cp `pwd`/.tmux.powerline.conf $HOME/.tmux.powerline.conf
