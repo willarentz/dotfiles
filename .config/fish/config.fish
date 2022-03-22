@@ -159,7 +159,7 @@ if status --is-interactive; and test (uname) = "Darwin"
 # <<< conda initialize <<<
 end
 
-if status --is-interactive; and test (uname) = "Linux"
+if status --is-interactive; and test (uname) = "Linux"; and [ -d $HOME/miniconda3 ]
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
