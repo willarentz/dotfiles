@@ -6,7 +6,7 @@
 #alias make 'make --no-print-directory'
 alias mv 'mv -i'
 alias diff 'colordiff'
-alias l 'exa -alh'
+alias l 'exa -h --icons --group-directories-first'
 alias ... 'cd ../..'
 alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
@@ -151,6 +151,7 @@ if status --is-interactive; and test (uname) = "Darwin"
   set -U fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
   set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/bin" $fish_user_paths
   set -U fish_user_paths "/opt/homebrew/Caskroom/miniforge/base/condabin" $fish_user_paths
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source

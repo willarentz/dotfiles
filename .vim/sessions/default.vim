@@ -10,8 +10,8 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd .config/fish/config.fish
-edit .config/fish/config.fish
+$argadd .dotfiles/.config/fish/config.fish
+edit .dotfiles/.config/fish/config.fish
 argglobal
 setlocal fdm=manual
 setlocal fde=fish#Fold()
@@ -23,14 +23,14 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((14 * winheight(0) + 10) / 20)
+let s:l = 9 - ((8 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 15
-normal! 014|
+keepjumps 9
+normal! 015|
 tabnext 1
-badd +0 .config/fish/config.fish
+badd +0 .dotfiles/.config/fish/config.fish
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -42,7 +42,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
