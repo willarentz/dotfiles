@@ -16,7 +16,7 @@ if status --is-interactive; and test (uname) = "Darwin"
   alias cat 'bat --paging=never -p'
 else if status --is-interactive; and test (uname) = "Linux"
   alias cat 'batcat --paging=never -p'
-  set -x PATH $HOME/go/bin $HOME/miniconda3/bin $PATH
+  set -x PATH $HOME/go/bin $PATH
 end
 
 set -x PATH $HOME/bin $PATH
@@ -156,5 +156,12 @@ if status --is-interactive; and test (uname) = "Darwin"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+end
+
+if status --is-interactive; and test (uname) = "Linux"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+  eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 end
