@@ -66,6 +66,7 @@ end
 set -x LESS '-R'
 #set -x LESSOPEN '| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
+# Using tmux as part of the shell
 ## tmux
 #if status --is-interactive
 #  if test -z $TMUX
