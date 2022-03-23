@@ -10,8 +10,8 @@ alias l 'exa -h --icons --group-directories-first'
 alias ... 'cd ../..'
 alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
-alias aws2 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
-alias aws2proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-156-199-223.eu-central-1.compute.amazonaws.com'
+alias open_ports 'sudo lsof -PiTCP -sTCP:LISTEN'
+
 if status --is-interactive; and test (uname) = "Linux"
   set -x PATH $HOME/go/bin $PATH
 end
