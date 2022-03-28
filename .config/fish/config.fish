@@ -115,9 +115,9 @@ function fish_user_key_bindings
   bind \cs '__ethp_commandline_toggle_sudo'
 end
 
+
 # direnv
 direnv hook fish | source
-
 #### general function
 function reload_config
   exec fish
