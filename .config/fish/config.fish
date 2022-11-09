@@ -37,6 +37,11 @@ set -x PROMPT_ENABLE_K8S_NAMESPACE 0
 set -x PROMPT_ENABLE_GCLOUD_PROJECT 1
 set -x PROMPT_SHOW_ERR_STATUS 1
 
+## gstreamer
+if status --is-interactive; and test (uname) = "Darwin"
+  set -x GST_PLUGIN_PATH "/opt/homebrew/lib/gstreamer-1.0/"
+end
+
 ## vim
 alias vi nvim
 set -x EDITOR nvim
@@ -160,7 +165,8 @@ if status --is-interactive; and test (uname) = "Darwin"
 end
 
 if status --is-interactive; and test (uname) = "Linux"; and [ -d $HOME/miniconda3 ]
-# >>> conda initialize >>>
+  set -g -x PATH $HOME/go/bin $PATH
+  # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
