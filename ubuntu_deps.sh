@@ -23,6 +23,7 @@ fi
 sudo usermod --shell $(which fish) $USER
 
 $HOME/go/bin/ghq get http://github.com/willarentz/dotfiles
+sudo ln -s /usr/bin/batcat /usr/bin/bat
 
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/miniconda3_linux.sh
 fish
