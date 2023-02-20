@@ -1,0 +1,12 @@
+Instructions to update NVIM
+============================
+
+1. Make sure you have a new version of node.js installed
+  - Linux/Raspian:
+    > sudo npm install -g n
+    > sudo n latest
+    > node -v
+
+2. Give nvim commands:
+  :PlugUpdate
+  :PlugUpgrade
