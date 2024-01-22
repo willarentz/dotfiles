@@ -8,9 +8,10 @@ alias mv 'mv -i'
 alias diff 'colordiff'
 alias l 'exa -h --icons --group-directories-first'
 alias ... 'cd ../..'
-alias aws1 'ssh -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
-alias aws1proxy 'ssh -D 9999 -i ~/.ssh/orbify.pem ubuntu@ec2-18-193-122-253.eu-central-1.compute.amazonaws.com'
+alias aws1 'ssh -i ~/.ssh/aws_tokyo.pem ubuntu@54.199.199.0'
+alias aws1proxy 'ssh -D 9999 -i ~/.ssh/aws_tokyo.pem ubuntu@54.199.199.0'
 alias open_ports 'sudo lsof -PiTCP -sTCP:LISTEN'
+alias mp3_to_m4a "echo 'CMD: ffmpeg -i inputfile -map_metadata 0 -vn -c:a aac -b:a 192k outfile.m4a'"
 
 if status --is-interactive; and test (uname) = "Linux"
   set -x PATH $HOME/go/bin $PATH
@@ -19,6 +20,7 @@ alias cat 'bat --paging=never -p'
 
 
 set -x PATH $HOME/bin $PATH
+#set -x PATH $HOME/.platformio/penv/bin $PATH
 
 ## Encoding
 set -x LANG en_US.UTF-8
@@ -142,6 +144,10 @@ set fish_greeting
 
 # Load local env, functions and so on.
 source $HOME/.config/fish/conf.d/local.fish
+# Load private local env that does not get checked in (tokens etc)
+if [ -f $HOME/.profile.fish ];
+  source $HOME/.profile.fish ;
+end
 
 # tab completion very slow...  may be fix next-release. (3.1.3?)
 # https://github.com/fish-shell/fish-shell/issues/7511
@@ -165,9 +171,24 @@ if status --is-interactive; and test (uname) = "Darwin"
 end
 
 if status --is-interactive; and test (uname) = "Linux"; and [ -d $HOME/miniconda3 ]
-  set -g -x PATH $HOME/go/bin $PATH
-  # >>> conda initialize >>>
+# >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
   eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
+end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/arentz/SynologyDrive/dev/Orbify/google-cloud-sdk/path.fish.inc' ]; . '/Users/arentz/SynologyDrive/dev/Orbify/google-cloud-sdk/path.fish.inc'; end
+
+# See who is listening
+function listening
+    if test (count $argv) -eq 0
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    else
+      if test (count $argv) -eq 1
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $argv[1]
+      else
+        echo "Usage: listening [pattern]"
+      end
+  end
 end

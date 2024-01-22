@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 if type -q exa
+  alias la "exa -la"
   alias ll "exa -l -g --icons"
   alias ls "exa --icons"
   alias lla "ll -a"
@@ -26,3 +27,5 @@ set -g -x BAT_THEME "OneHalfDark"
 if status --is-interactive; and test (uname) = "Darwin"
   set -U fish_user_paths "$HOME/opt/anaconda3/bin" $fish_user_paths
 end
+
+alias oi_litellm 'litellm --model ollama/wizardcoder:33b-v1.1 --port 1234'
