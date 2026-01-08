@@ -6,7 +6,7 @@
 #alias make 'make --no-print-directory'
 alias mv 'mv -i'
 alias diff 'colordiff'
-alias l 'exa -h --icons --group-directories-first'
+alias l 'eza -h --icons --group-directories-first'
 alias ... 'cd ../..'
 alias aws1 'ssh -i ~/.ssh/aws_tokyo.pem ubuntu@54.199.199.0'
 alias aws1proxy 'ssh -D 9999 -i ~/.ssh/aws_tokyo.pem ubuntu@54.199.199.0'
